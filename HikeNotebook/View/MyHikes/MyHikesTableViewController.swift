@@ -25,6 +25,34 @@ class MyHikesTableViewController: UITableViewController {
 
          self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
+    
+    // MARK: Instructions Pop UP
+    
+    let welcomeStatement = "To record your first hike press the add button in the top right corner."
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if(!appDelegate.hasAlreadyLaunched) {
+            appDelegate.sethasAlreadyLaunched()
+            displayFirstHikeStatement(message: self.welcomeStatement)
+        }
+    }
+    
+    func displayFirstHikeStatement(message: String) {
+        
+        // create alert
+        let alert = UIAlertController(title: "Welcome", message: message, preferredStyle: .alert)
+        
+        // create next button
+        let nextButton = UIAlertAction(title: "Get started!", style: .default) { (action) -> Void in
+            
+        }
+        
+        alert.addAction(nextButton)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 
     // MARK: - Table view data source
     

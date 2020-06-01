@@ -11,12 +11,26 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var hasAlreadyLaunched: Bool!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        hasAlreadyLaunched = UserDefaults.standard.bool(forKey: "hasAlreadyLaunched")
+        
+        //check first launch
+        if (hasAlreadyLaunched) {
+            hasAlreadyLaunched = true
+        } else {
+            UserDefaults.standard.set(true, forKey: "hasAlreadyLaunched")
+        }
+        
         return true
+    }
+    
+    func sethasAlreadyLaunched() {
+        hasAlreadyLaunched = true
     }
 
     // MARK: UISceneSession Lifecycle
