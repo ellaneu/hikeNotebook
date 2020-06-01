@@ -30,7 +30,7 @@ class AnimationViewController: UIViewController {
     // MARK: Animation Image
     
     func startAnimation() {
-        animationView.animation = Animation.named("1857-the-travelers-walking-cycle-delivery")
+        animationView.animation = Animation.named("hikeAnimation")
         animationView.loopMode = .loop
         animationView.play()
     }

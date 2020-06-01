@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		07064D4F6F5C00E7B273DC1C /* Pods_HikeNotebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1B8C3419F3F3683BC08BA4 /* Pods_HikeNotebook.framework */; };
 		ED0AC6AC2446829E000C96A7 /* Hikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0AC6AB2446829E000C96A7 /* Hikes.swift */; };
-		ED382677248548FA00CBA731 /* 18517-the-travelers-walking-cycle-delivery.json in Resources */ = {isa = PBXBuildFile; fileRef = ED382676248548FA00CBA731 /* 18517-the-travelers-walking-cycle-delivery.json */; };
+		ED38267B24858A2B00CBA731 /* hikeAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38267A24858A2B00CBA731 /* hikeAnimation.json */; };
 		ED5636D3246F79740082D409 /* HikesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5636D2246F79740082D409 /* HikesItem.swift */; };
 		ED59AE6124454DBD0067712F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59AE6024454DBD0067712F /* UIView+Extension.swift */; };
 		ED59AE6324454E030067712F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59AE6224454E030067712F /* Colors.swift */; };
@@ -38,7 +38,7 @@
 		6D1B8C3419F3F3683BC08BA4 /* Pods_HikeNotebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HikeNotebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA55ED7324D230BFA1FD6408 /* Pods-HikeNotebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HikeNotebook.release.xcconfig"; path = "Target Support Files/Pods-HikeNotebook/Pods-HikeNotebook.release.xcconfig"; sourceTree = "<group>"; };
 		ED0AC6AB2446829E000C96A7 /* Hikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hikes.swift; sourceTree = "<group>"; };
-		ED382676248548FA00CBA731 /* 18517-the-travelers-walking-cycle-delivery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "18517-the-travelers-walking-cycle-delivery.json"; path = "../../../Downloads/18517-the-travelers-walking-cycle-delivery.json"; sourceTree = "<group>"; };
+		ED38267A24858A2B00CBA731 /* hikeAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hikeAnimation.json; path = ../../../.Trash/hikeAnimation.json; sourceTree = "<group>"; };
 		ED5636D2246F79740082D409 /* HikesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikesItem.swift; sourceTree = "<group>"; };
 		ED59AE6024454DBD0067712F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		ED59AE6224454E030067712F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			children = (
 				ED9D6C18243271A80033AD6E /* AppDelegate.swift */,
 				ED9D6C1A243271A80033AD6E /* SceneDelegate.swift */,
-				ED382676248548FA00CBA731 /* 18517-the-travelers-walking-cycle-delivery.json */,
+				ED38267A24858A2B00CBA731 /* hikeAnimation.json */,
 				ED9D6C312432726D0033AD6E /* Model */,
 				ED9D6C302432725F0033AD6E /* View */,
 				ED9D6C2F243272540033AD6E /* Controller */,
@@ -274,7 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED382677248548FA00CBA731 /* 18517-the-travelers-walking-cycle-delivery.json in Resources */,
+				ED38267B24858A2B00CBA731 /* hikeAnimation.json in Resources */,
 				ED9D6C28243271AE0033AD6E /* LaunchScreen.storyboard in Resources */,
 				ED9D6C25243271AE0033AD6E /* Assets.xcassets in Resources */,
 				ED9D6C20243271A80033AD6E /* Main.storyboard in Resources */,
