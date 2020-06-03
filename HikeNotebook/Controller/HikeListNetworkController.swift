@@ -8,42 +8,30 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class HikeListNetworkController: HikeListController {
-    let baseURL = URL(string: "https://www.hikingproject.com/data/get-trails-by-id?ids=7000108,7001726,7001623,7015185,7015350,7011064,7016979,7001585,7007940,7002256,7002254,7002257,7002685,7006813,7002269,7002420,7002658,7010494&key=200727312-558845191b8586dd2d6c5c7f1ac73fab")!
-    let session = URLSession.shared
+class HikeListNetworkController {
     
-//    ,7002660,7023366,7027699,7031956,7005938,7089012,7034161,7043919,7003467,7031765,7030662
-    
-    
-    func getHikeList(completion: @escaping (Result<HikeList, HikeListError>) -> Void) {
-        let hikeListURL = baseURL
+    func fetchItems(matching query: [String: String], location: CLLocation, completion: @escaping ([HikeListItem]?) -> Void) {
+        let baseUrl = URL(string: "https://www.hikingproject.com/data/get-trails?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&key=200727312-558845191b8586dd2d6c5c7f1ac73fab")
         
-        let request = URLRequest(url: hikeListURL)
+        guard let url = baseUrl?.withQueries(query) else {
+            completion(nil)
+            print("Unable to build URL with supplied queries.")
+            return
+        }
         
-        let task = session.dataTask(with: request) { (data, response, error) in
-            guard error == nil else { return completion(.failure(.failed)) }
-            
-            
-            print((response as? HTTPURLResponse)?.statusCode)
-            print(data)
-            if (response as? HTTPURLResponse)?.statusCode == 200,
-                let data = data {
-                let decoder = JSONDecoder()
-                
-                do {
-                    let hikeList = try decoder.decode(HikeList.self, from: data)
-                    
-                    completion(.success(hikeList))
-                } catch {
-                    print(error)
-                    completion(.failure(.failed))
-                }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let decoder = JSONDecoder()
+            if let data = data,
+                let hikeList = try? decoder.decode(HikeList.self, from: data) {
+                completion(hikeList.trails)
             } else {
-                completion(.failure(.failed))
+                print("Either no data was returned, or data was not serialized.")
+                completion(nil)
+                return
             }
         }
         task.resume()
     }
-    
 }

@@ -18,7 +18,6 @@
 		ED59AE7324463A930067712F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59AE7224463A930067712F /* Stack.swift */; };
 		ED720FFB245280FB002EEC97 /* CollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720FFA245280FB002EEC97 /* CollectionView+Extension.swift */; };
 		ED72105D245F98FF002EEC97 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED72105C245F98FF002EEC97 /* AnimationViewController.swift */; };
-		ED7210632462339A002EEC97 /* HikeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7210622462339A002EEC97 /* HikeListController.swift */; };
 		ED721065246233EE002EEC97 /* HikeListNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED721064246233EE002EEC97 /* HikeListNetworkController.swift */; };
 		ED72106D24665398002EEC97 /* SearchHikesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED72106C24665398002EEC97 /* SearchHikesTableViewCell.swift */; };
 		ED9D6C19243271A80033AD6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D6C18243271A80033AD6E /* AppDelegate.swift */; };
@@ -47,7 +46,6 @@
 		ED59AE7224463A930067712F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		ED720FFA245280FB002EEC97 /* CollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Extension.swift"; sourceTree = "<group>"; };
 		ED72105C245F98FF002EEC97 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
-		ED7210622462339A002EEC97 /* HikeListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikeListController.swift; sourceTree = "<group>"; };
 		ED721064246233EE002EEC97 /* HikeListNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikeListNetworkController.swift; sourceTree = "<group>"; };
 		ED72106C24665398002EEC97 /* SearchHikesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHikesTableViewCell.swift; sourceTree = "<group>"; };
 		ED9D6C15243271A80033AD6E /* HikeNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,7 +143,6 @@
 		ED9D6C2F243272540033AD6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				ED7210622462339A002EEC97 /* HikeListController.swift */,
 				ED721064246233EE002EEC97 /* HikeListNetworkController.swift */,
 			);
 			path = Controller;
@@ -334,7 +331,6 @@
 				EDE4F47524352F9300E7F83E /* RatingControl.swift in Sources */,
 				ED59AE66244559880067712F /* SearchHikesTableViewController.swift in Sources */,
 				ED59AE7324463A930067712F /* Stack.swift in Sources */,
-				ED7210632462339A002EEC97 /* HikeListController.swift in Sources */,
 				ED59AE6324454E030067712F /* Colors.swift in Sources */,
 				ED59AE6A2446383E0067712F /* URL+Helpers.swift in Sources */,
 				ED721065246233EE002EEC97 /* HikeListNetworkController.swift in Sources */,

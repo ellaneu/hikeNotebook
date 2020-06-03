@@ -11,20 +11,74 @@ import MapKit
 
 class SearchHikesTableViewController: UITableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+   
     let spinner = UIActivityIndicatorView(style: .large)
     
-    let hikeListController: HikeListController = HikeListNetworkController()
-    var hikeList: HikeList = HikeList(trails: [])
-//    var selectedHike: HikeListItem?
-//    var hike: Hikes?
+    var items = [HikeListItem]()
+    var hikeListController = HikeListNetworkController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        spinner.startAnimating()
-        tableView.backgroundView = spinner
+        searchBar.delegate = self
+//        spinner.startAnimating()
+//        tableView.backgroundView = spinner
+    }
+    
+    // MARK: CLLocation Implementation
+    
+    func getLocation(forPlaceCalled name: String, completion: @escaping(CLLocation?) -> Void) {
         
-       fetchHikeInfo()
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(name) { (placemarks, error) in
+            
+            guard error == nil else {
+                print("Error")
+                completion(nil)
+                return
+            }
+            
+            guard let placemark = placemarks?[0] else {
+                print("Error placemark is nil")
+                completion(nil)
+                return
+            }
+            
+            guard let location = placemark.location else {
+                print("Error placemark is nil")
+                completion(nil)
+                return
+            }
+            
+            completion(location)
+        }
+    }
+    
+    // MARK: API Caller
+    
+    func fetchHikeInformation() {
+        
+        self.items = []
+        self.tableView.reloadData()
+        
+        let searchTerm = searchBar.text ?? ""
+        
+        if !searchTerm.isEmpty {
+            
+//            let query: [String: String] = [
+//                "lat": searchTerm
+//            ]
+            let location = CLLocation(latitude: 40.0274, longitude: -105.2519)
+            hikeListController.fetchItems(matching: [:], location: location) { (fetchItems) in
+                if let fetchItems = fetchItems {
+                    DispatchQueue.main.async {
+                        self.items = fetchItems
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
     
 
@@ -32,12 +86,12 @@ class SearchHikesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return hikeList.trails.count
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let certainHike = hikeList.trails[indexPath.row]
+        let certainHike = items[indexPath.row]
         let latitude: CLLocationDegrees = certainHike.latitude
         let longitude: CLLocationDegrees = certainHike.longitude
         
@@ -57,7 +111,7 @@ class SearchHikesTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "hikeCell", for: indexPath) as! SearchHikesTableViewCell
         
-        let certainHike = hikeList.trails[indexPath.row]
+        let certainHike = items[indexPath.row]
         
         cell.hikeNameLabel.text = certainHike.name
         cell.summaryLabel.text = certainHike.summary
@@ -68,26 +122,12 @@ class SearchHikesTableViewController: UITableViewController {
         
         return cell
     }
-    
-    // MARK: Api Caller
+}
 
+extension SearchHikesTableViewController: UISearchBarDelegate {
     
-    func fetchHikeInfo() {
-        hikeListController.getHikeList { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let hikeList):
-                    print(hikeList)
-                    self.hikeList = hikeList
-                    self.tableView.reloadData()
-                case .failure:
-                    let alert = UIAlertController(title: "Error", message: "Failed to load data.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

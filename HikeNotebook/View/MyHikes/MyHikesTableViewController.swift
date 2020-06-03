@@ -42,11 +42,10 @@ class MyHikesTableViewController: UITableViewController {
     func displayFirstHikeStatement(message: String) {
         
         // create alert
-        let alert = UIAlertController(title: "Welcome", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Welcome to your Hiking Notebook", message: message, preferredStyle: .alert)
         
         // create next button
         let nextButton = UIAlertAction(title: "Get started!", style: .default) { (action) -> Void in
-            
         }
         
         alert.addAction(nextButton)

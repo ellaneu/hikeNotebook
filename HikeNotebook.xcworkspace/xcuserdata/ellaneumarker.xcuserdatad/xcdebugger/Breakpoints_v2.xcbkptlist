@@ -3,4 +3,54 @@
    uuid = "E4C379FC-8DEB-47DA-9E85-CFB5ECC5CB88"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A2F8F95-3E4A-415C-B7C4-8E62951043A9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HikeNotebook/View/SearchHikes/SearchHikesTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "fetchHikeInformation()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3A2F8F95-3E4A-415C-B7C4-8E62951043A9 - 9680814748c40c56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HikeNotebook.SearchHikesTableViewController.fetchHikeInformation() -&gt; ()"
+                  moduleName = "HikeNotebook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ellaneumarker/Desktop/HikeNotebook/HikeNotebook/View/SearchHikes/SearchHikesTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "973">
+               </Location>
+               <Location
+                  uuid = "3A2F8F95-3E4A-415C-B7C4-8E62951043A9 - ebcae48aa793c0e6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;HikeNotebook.HikeListItem&gt;&gt;) -&gt; () in HikeNotebook.SearchHikesTableViewController.fetchHikeInformation() -&gt; ()"
+                  moduleName = "HikeNotebook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ellaneumarker/Desktop/HikeNotebook/HikeNotebook/View/SearchHikes/SearchHikesTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "171">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
