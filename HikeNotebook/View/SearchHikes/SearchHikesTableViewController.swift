@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class SearchHikesTableViewController: UITableViewController {
+class SearchHikesTableViewController: UITableViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
    
@@ -17,10 +18,19 @@ class SearchHikesTableViewController: UITableViewController {
     
     var items = [HikeListItem]()
     var hikeListController = HikeListNetworkController()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+    
         searchBar.delegate = self
 //        spinner.startAnimating()
 //        tableView.backgroundView = spinner
@@ -28,49 +38,15 @@ class SearchHikesTableViewController: UITableViewController {
     
     // MARK: CLLocation Implementation
     
-    func getLocation(forPlaceCalled name: String, completion: @escaping(CLLocation?) -> Void) {
-        
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(name) { (placemarks, error) in
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
             
-            guard error == nil else {
-                print("Error")
-                completion(nil)
-                return
-            }
+            print(location.coordinate)
             
-            guard let placemark = placemarks?[0] else {
-                print("Error placemark is nil")
-                completion(nil)
-                return
-            }
+            self.items = []
+            self.tableView.reloadData()
             
-            guard let location = placemark.location else {
-                print("Error placemark is nil")
-                completion(nil)
-                return
-            }
-            
-            completion(location)
-        }
-    }
-    
-    // MARK: API Caller
-    
-    func fetchHikeInformation() {
-        
-        self.items = []
-        self.tableView.reloadData()
-        
-        let searchTerm = searchBar.text ?? ""
-        
-        if !searchTerm.isEmpty {
-            
-//            let query: [String: String] = [
-//                "lat": searchTerm
-//            ]
-            let location = CLLocation(latitude: 40.0274, longitude: -105.2519)
-            hikeListController.fetchItems(matching: [:], location: location) { (fetchItems) in
+            hikeListController.fetchItems(location: location.coordinate) { (fetchItems) in
                 if let fetchItems = fetchItems {
                     DispatchQueue.main.async {
                         self.items = fetchItems
@@ -81,9 +57,77 @@ class SearchHikesTableViewController: UITableViewController {
         }
     }
     
-
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled", message: "In order to find hikes near you we need your location or you can manually search a location.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+   
+    // MARK: API Caller
+    
+    func fetchHikeInformation() {
+        
+        self.items = []
+        self.tableView.layoutIfNeeded()
+        
+        let searchTerm = searchBar.text ?? ""
+        let geocoder = CLGeocoder()
+        
+        if !searchTerm.isEmpty {
+            
+//            let address = "\(searchTerm)"
+            
+            geocoder.geocodeAddressString(searchTerm) { (placemarks, error) in
+                self.processResponse(withPlacemarks: placemarks, error: error)
+            }
+    
+        }
+    }
+    
+    func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
+        
+        if let error = error {
+            print("Unable to Forward Geocode Address \(error)")
+        } else {
+            
+            var location: CLLocation?
+            
+            if let placemarks = placemarks, placemarks.count > 0 {
+                location = placemarks.first?.location
+            }
+            
+            if let location = location {
+                let coordinate = location.coordinate
+                
+                hikeListController.fetchItems(location: coordinate) { (fetchItems) in
+                    if let fetchItems = fetchItems {
+                        DispatchQueue.main.async {
+                            self.items = fetchItems
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return items.count

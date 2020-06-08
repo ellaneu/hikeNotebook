@@ -12,10 +12,10 @@ import CoreLocation
 
 class HikeListNetworkController {
     
-    func fetchItems(matching query: [String: String], location: CLLocation, completion: @escaping ([HikeListItem]?) -> Void) {
-        let baseUrl = URL(string: "https://www.hikingproject.com/data/get-trails?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&key=200727312-558845191b8586dd2d6c5c7f1ac73fab")
+    func fetchItems(location: CLLocationCoordinate2D, completion: @escaping ([HikeListItem]?) -> Void) {
+        let baseUrl = URL(string: "https://www.hikingproject.com/data/get-trails?lat=\(location.latitude)&lon=\(location.longitude)&key=200727312-558845191b8586dd2d6c5c7f1ac73fab")
         
-        guard let url = baseUrl?.withQueries(query) else {
+        guard let url = baseUrl else {
             completion(nil)
             print("Unable to build URL with supplied queries.")
             return
@@ -34,4 +34,9 @@ class HikeListNetworkController {
         }
         task.resume()
     }
+    
+    
+    
+    
+    
 }
