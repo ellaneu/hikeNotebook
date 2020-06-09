@@ -19,6 +19,7 @@ class SearchHikesTableViewController: UITableViewController, CLLocationManagerDe
     var items = [HikeListItem]()
     var hikeListController = HikeListNetworkController()
     let locationManager = CLLocationManager()
+    var shouldShowSearchResults = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +83,12 @@ class SearchHikesTableViewController: UITableViewController, CLLocationManagerDe
     func fetchHikeInformation() {
         
         self.items = []
-        self.tableView.layoutIfNeeded()
+        self.tableView.reloadData()
         
         let searchTerm = searchBar.text ?? ""
         let geocoder = CLGeocoder()
         
         if !searchTerm.isEmpty {
-            
-//            let address = "\(searchTerm)"
             
             geocoder.geocodeAddressString(searchTerm) { (placemarks, error) in
                 self.processResponse(withPlacemarks: placemarks, error: error)

@@ -128,8 +128,6 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
     }
     
     
-
-
      // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -187,14 +185,29 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
    
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         
-        hikeNameTextField.resignFirstResponder()
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
         
-        let imagePickerController = UIImagePickerController()
+        let alertController = UIAlertController(title: "Add an Image", message: "Choose From", preferredStyle: .actionSheet)
         
-        imagePickerController.sourceType = .photoLibrary
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            pickerController.sourceType = .camera
+            self.present(pickerController, animated: true, completion: nil)
+        }
         
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
+        let photosLibraryAction = UIAlertAction(title: "Photos Library", style: .default) { (action) in
+            pickerController.sourceType = .photoLibrary
+            self.present(pickerController, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(photosLibraryAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Private Methods
