@@ -25,6 +25,10 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Keyboard Dismiss
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
         // Text Field Delegate
         hikeNameTextField.delegate = self
         
@@ -32,7 +36,7 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
         noteTextView.text = "Notes from the hike..."
         noteTextView.textColor = UIColor.lightGray
         noteTextView.font = UIFont(name: "verdana", size: 13.0)
-        noteTextView.returnKeyType = .done
+//        noteTextView.returnKeyType = .done
         noteTextView.delegate = self
         
         // Assign label to hike name
@@ -47,7 +51,6 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
         }
         
         // Functions
-        
         difficultyPicker()
         createToolBar()
         updateSaveButtonState()
@@ -111,6 +114,10 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
         }
     }
     
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
     // MARK: UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -118,7 +125,15 @@ class AddHikesViewController: UIViewController, UITextViewDelegate, UIImagePicke
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == hikeNameTextField {
+            textField.resignFirstResponder()
+            hikeDistanceTextField.becomeFirstResponder()
+        } else if textField == hikeDistanceTextField {
+            textField.resignFirstResponder()
+            difficultyTextField.becomeFirstResponder()
+        } else if textField == difficultyTextField {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
